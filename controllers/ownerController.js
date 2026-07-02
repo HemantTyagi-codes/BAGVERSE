@@ -1,0 +1,169 @@
+const ownerModel = require("../models/owner-model");
+const productModel = require("../models/product-model");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const jwtKey = process.env.JWT_KEY || "bagverse-dev-secret";
+
+// OWNER LOGIN
+module.exports.loginOwner = async(req,res)=>{
+
+
+    let {email,password}=req.body;
+
+
+
+    let owner =
+    await ownerModel.findOne({
+        email
+    });
+
+
+
+    if(!owner){
+        req.flash("error", "Owner not found");
+        return res.redirect("/owners/login");
+    }
+
+
+
+    let match =
+    await bcrypt.compare(
+        password,
+        owner.password
+    );
+
+
+
+    if(!match){
+        req.flash("error", "Invalid password");
+        return res.redirect("/owners/login");
+    }
+
+
+
+
+    let token =
+    jwt.sign(
+        {
+            id:owner._id,
+            email:owner.email,
+            role:"admin"
+        },
+        jwtKey,
+        { expiresIn: "1h" }
+    );
+
+
+
+    res.cookie(
+        "token",
+        token,
+        {
+            httpOnly: true,
+            maxAge: 60 * 60 * 1000,
+            sameSite: "strict"
+        }
+    );
+
+
+
+    req.flash("success", "Welcome back, admin");
+    res.redirect("/owners/admin");
+
+
+};
+
+
+
+
+
+// CREATE OWNER (first time only)
+
+module.exports.createOwner = async(req,res)=>{
+
+
+    let owners =
+    await ownerModel.find();
+
+
+
+    if(owners.length>0){
+        req.flash("error", "Owner already exists");
+        return res.redirect("/owners/login");
+
+    }
+
+
+
+    let {
+        fullname,
+        email,
+        password
+    }=req.body;
+
+
+
+
+    let hash =
+    await bcrypt.hash(
+        password,
+        10
+    );
+
+
+
+    let owner =
+    await ownerModel.create({
+
+        fullname,
+
+        email,
+
+        password:hash
+
+    });
+
+
+
+    req.flash("success", "Owner created successfully");
+    return res.redirect("/owners/login");
+
+};
+
+
+
+
+
+
+// ADMIN PAGE
+
+module.exports.adminPage = async(req,res)=>{
+
+
+    let products =
+    await productModel.find();
+
+
+
+    let success =
+    req.flash("success");
+
+
+
+    res.render(
+        "createproducts",
+        {
+            products,
+            success
+        }
+    );
+
+
+};
+
+module.exports.logoutOwner = (req, res) => {
+    res.clearCookie("token", { path: "/" });
+    req.flash("success", "You have been logged out");
+    return res.redirect("/owners/login");
+};

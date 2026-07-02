@@ -1,8 +1,53 @@
-const express=require('express');
-const router=express.Router();
+const express = require("express");
+const router = express.Router();
 
-router.get("/",function(res,res){
-    res.send("hey")
+const ownerController =
+require("../controllers/ownerController");
+
+const isAdmin = require("../middleware/isAdmin");
+
+
+
+// first owner creation
+router.post(
+"/create",
+ownerController.createOwner
+);
+
+
+
+// login page
+router.get(
+"/login",
+function(req,res){
+
+    res.render("owner-login");
+
 });
 
-module.exports=router;
+
+
+
+// login process
+
+router.post(
+"/login",
+ownerController.loginOwner
+);
+
+
+
+
+// logout
+router.get("/logout", ownerController.logoutOwner);
+
+// protected admin page
+router.get(
+    "/admin",
+    isAdmin,
+    ownerController.adminPage
+);
+
+
+
+module.exports = router;

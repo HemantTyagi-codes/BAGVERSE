@@ -1,29 +1,44 @@
-const mongoose=require('mongoose');
+const mongoose = require("mongoose");
 
+const ownerSchema = mongoose.Schema({
 
-
-const ownerSchema=mongoose.Schema({
-    fullname:{
-        type:String,
-        minLength:3,
-        trim:true,},
-
-    email:String,
-
-    password:String,
-
-
-    products:{
-        type:Array,
-        default:[]
+    fullname: {
+        type: String,
+        required: true,
+        minlength: 3,
+        trim: true
     },
-    
-    
-    
-    picture:String,
-    gstin:String,
 
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true
+    },
 
+    password: {
+        type: String,
+        required: true
+    },
+
+    products: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "product"
+        }
+    ],
+
+    picture: String,
+
+    gstin: {
+        type: String,
+        trim: true,
+        uppercase: true
+    }
+
+}, {
+    timestamps: true
 });
 
-modeule.exports=mongoose.model("owner",ownerSchema);
+module.exports = mongoose.model("owner", ownerSchema);

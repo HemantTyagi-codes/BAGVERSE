@@ -1,0 +1,152 @@
+<%- include('./partials/header') %>
+
+<div class="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+
+    <div class="w-full max-w-3xl bg-white rounded-2xl shadow-xl overflow-hidden">
+
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-gray-800 to-gray-600 p-6">
+            <h1 class="text-2xl font-bold text-white">
+                Edit Product
+            </h1>
+            <p class="text-gray-200 text-sm">Update product details below</p>
+        </div>
+
+        <div class="p-6 grid md:grid-cols-2 gap-6">
+
+            <!-- Product Image Card -->
+           <!-- Product Image Card -->
+<div class="bg-gray-50 rounded-xl p-4 border flex flex-col items-center">
+
+    <!-- IMAGE -->
+    <div class="w-full h-52 bg-gray-100 overflow-hidden border rounded-lg">
+
+        <img
+            src="/images/<%= product.image %>"
+            class="w-full h-full object-contain"
+        >
+
+    </div>
+
+    <!-- CHANGE IMAGE -->
+    <form
+        action="/products/update-image/<%= product._id %>"
+        method="POST"
+        enctype="multipart/form-data"
+        class="w-full mt-4"
+    >
+
+        <input
+            type="file"
+            name="image"
+            accept="image/*"
+            class="w-full mb-2 text-sm"
+        >
+
+        <button
+            type="submit"
+            class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+        >
+            Change Image
+        </button>
+
+    </form>
+
+</div>
+
+            <!-- Form Card -->
+            <form action="/products/update/<%= product._id %>" method="POST" class="space-y-3">
+
+                <input type="text" name="name" value="<%= product.name %>"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                    placeholder="Product Name">
+
+                <input type="number" name="price" value="<%= product.price %>"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                    placeholder="Price">
+
+                <input type="number" name="discount" value="<%= product.discount %>"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                    placeholder="Discount">
+
+
+                <!-- CATEGORY -->
+
+<select
+    name="category"
+    required
+    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400">
+
+
+    <option value="">
+        Select Category
+    </option>
+
+
+    <option 
+        value="Travel"
+        <%= product.category == "Travel" ? "selected" : "" %>>
+        Travel
+    </option>
+
+
+    <option 
+        value="Premium"
+        <%= product.category == "Premium" ? "selected" : "" %>>
+        Premium
+    </option>
+
+
+    <option 
+        value="Laptop"
+        <%= product.category == "Laptop" ? "selected" : "" %>>
+        Laptop
+    </option>
+
+
+    <option 
+        value="School"
+        <%= product.category == "School" ? "selected" : "" %>>
+        School
+    </option>
+
+
+</select>
+                
+
+                <input type="text" name="bgcolor" value="<%= product.bgcolor %>"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                    placeholder="Background Color">
+
+                <input type="text" name="panelcolor" value="<%= product.panelcolor %>"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                    placeholder="Panel Color">
+
+                <input type="text" name="textcolor" value="<%= product.textcolor %>"
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                    placeholder="Text Color">
+
+                <div class="flex gap-3 pt-2">
+
+                    <button type="submit"
+                        class="flex-1 bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+
+                        Save Changes
+                    </button>
+
+                    <a href="/owners/admin"
+                        class="flex-1 text-center bg-gray-500 text-white py-2 rounded-lg font-semibold hover:bg-gray-600 transition">
+
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<%- include('./partials/footer') %>
