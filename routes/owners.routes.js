@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const ownerController =
-require("../controllers/ownerController");
+require("../controllers/owner.controller");
 
 const isAdmin = require("../middleware/isAdmin");
 
@@ -21,7 +21,7 @@ router.get(
 "/login",
 function(req,res){
 
-    res.render("owner-login");
+    res.render("pages/owner-login");
 
 });
 

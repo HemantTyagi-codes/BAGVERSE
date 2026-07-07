@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     fullname: {
         type: String,
@@ -16,6 +16,21 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+
+    otp: {
+        type: String,
+        default: null
+    },
+
+    otpExpiry: {
+        type: Date,
+        default: null
+    },
+
+    isVerified: {
+        type: Boolean,
+        default: false,
     },
 
     contact: {
@@ -42,6 +57,6 @@ const userSchema = mongoose.Schema({
 
     picture: Buffer
 
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("user", userSchema);

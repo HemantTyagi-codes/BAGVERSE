@@ -2,15 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 const isLoggedIn = require("../middleware/isLoggedIn");
-const cartController = require("../controllers/cartController");
-const productModel = require("../models/product-model");
+const cartController = require("../controllers/cart.controller");
+const productModel = require("../models/product.model");
 
 // HOME PAGE
 router.get("/", (req, res) => {
     let error = req.flash("error");
+    let success = req.flash("success");
 
-    res.render("index", {
+    res.render("pages/index", {
         error,
+        success,
         loggedin: false
     });
 });
@@ -95,7 +97,7 @@ router.get("/shop", isLoggedIn, async function (req, res) {
 
 
 
-    res.render("shop", {
+    res.render("pages/shop", {
 
         products,
         success,
@@ -115,3 +117,4 @@ router.get("/cart", isLoggedIn, cartController.getCart);
 router.get("/addtocart/:productid", isLoggedIn, cartController.addToCart);
 
 module.exports = router;
+

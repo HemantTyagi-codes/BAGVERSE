@@ -1,5 +1,5 @@
-const ownerModel = require("../models/owner-model");
-const productModel = require("../models/product-model");
+const ownerModel = require("../models/owner.model");
+const productModel = require("../models/product.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -67,7 +67,7 @@ module.exports.adminPage = async (req, res) => {
     let products = await productModel.find();
     let success = req.flash("success");
 
-    res.render("createproducts", {
+    res.render("pages/createproducts", {
         products,
         success
     });
@@ -78,3 +78,4 @@ module.exports.logoutOwner = (req, res) => {
     req.flash("success", "You have been logged out");
     return res.redirect("/owners/login");
 };
+

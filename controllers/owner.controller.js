@@ -1,5 +1,5 @@
-const ownerModel = require("../models/owner-model");
-const productModel = require("../models/product-model");
+const ownerModel = require("../models/owner.model");
+const productModel = require("../models/product.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -152,7 +152,7 @@ module.exports.adminPage = async(req,res)=>{
 
 
     res.render(
-        "createproducts",
+        "pages/createproducts",
         {
             products,
             success

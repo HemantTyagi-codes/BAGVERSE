@@ -1,6 +1,6 @@
 
-const userModel = require("../models/user-model");
-const productModel = require("../models/product-model");
+const userModel = require("../models/user.model");
+const productModel = require("../models/product.model");
 
 
 //cart
@@ -28,7 +28,7 @@ module.exports.getCart = async (req, res) => {
     let platformFee = 20;
     let totalAmount = totalMRP - totalDiscount + platformFee;
 
-    res.render("cart", {
+    res.render("pages/cart", {
         user,
         totalMRP,
         totalDiscount,
@@ -56,6 +56,7 @@ module.exports.addToCart = async (req, res) => {
     req.flash("success", "Added to cart");
     res.redirect("/shop");
 };
+
 
 
 

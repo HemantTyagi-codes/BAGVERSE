@@ -1,4 +1,4 @@
-const productModel = require("../models/product-model");
+const productModel = require("../models/product.model");
 
 module.exports.createProduct = async (req, res) => {
     const { name, price, discount,category, bgcolor, panelcolor, textcolor } = req.body;
@@ -64,7 +64,7 @@ module.exports.getEditPage = async (req, res) => {
             return res.redirect("/owners/admin");
         }
 
-        res.render("editproduct", {
+        res.render("pages/editproduct", {
             product
         });
 

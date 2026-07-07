@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const upload = require("../config/multer-config");
-const productController = require("../controllers/productController");
+const upload = require("../config/multer.config");
+const productController = require("../controllers/product.controller");
 
 const isAdmin = require("../middleware/isAdmin");
 

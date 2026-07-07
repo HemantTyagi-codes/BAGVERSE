@@ -1,9 +1,17 @@
-<%- include('./partials/header') %>
+<%- include('../partials/header') %>
 
 <% if (error && error.length > 0) { %>
     <div class="absolute top-5 left-1/2 -translate-x-1/2 p-3 rounded-md bg-red-500 shadow-lg">
         <span class="text-white font-medium">
             <%= error[0] %>
+        </span>
+    </div>
+<% } %>
+
+<% if (success && success.length > 0) { %>
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 p-3 rounded-md bg-green-500 shadow-lg">
+        <span class="text-white font-medium">
+            <%= success[0] %>
         </span>
     </div>
 <% } %>
@@ -103,4 +111,5 @@
 
 </div>
 
-<%- include('./partials/footer') %>
+<%- include('../partials/footer') %>
+

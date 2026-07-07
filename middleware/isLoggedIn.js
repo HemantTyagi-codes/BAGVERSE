@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const userModel = require("../models/user-model");
+const userModel = require("../models/user.model");
 
 module.exports = async function (req, res, next) {
     const jwtKey = process.env.JWT_KEY || "bagverse-dev-secret";
